@@ -26,9 +26,6 @@ jobs:
       - name: Run build script
         run: ./build.sh  # Run your custom build script
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
