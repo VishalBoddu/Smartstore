@@ -15,7 +15,7 @@ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 $BuildProjectFile = "$PSScriptRoot\src\Smartstore.Build\Smartstore.Build\Smartstore.Build.csproj"
 $TempDirectory = "$PSScriptRoot\\.nuke\temp"
-$OutputDirectory = "$PSScriptRoot\output"  # Specify your output directory here
+$OutputDirectory = "C:\home\site\wwwroot"  # Set output directory to the specified path
 
 $DotNetGlobalFile = "$PSScriptRoot\\global.json"
 $DotNetInstallUrl = "https://dot.net/v1/dotnet-install.ps1"
@@ -77,4 +77,4 @@ if (Test-Path env:NUKE_ENTERPRISE_TOKEN) {
 }
 
 # Build the project and specify the output path
-ExecSafe { & $env:DOTNET_EXE build "$BuildProjectFile" /nodeReuse:false /p:Use
+ExecSafe { & $env:DOTNET_EXE build "$BuildProjectFile" /nodeReuse:false
