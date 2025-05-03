@@ -46,13 +46,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: smartstore-artifact
-
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2349920D9F9943C0B6C4EB168D23F1E1 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6B35F7D3D60C4BEC94AD7FFCEC2AE390 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_892202F8BF57412ABB1C46E1F1248B0F }}
+
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
