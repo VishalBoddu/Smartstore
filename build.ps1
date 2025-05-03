@@ -33,6 +33,11 @@ function ExecSafe([scriptblock] $cmd) {
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
+# Create the output directory if it doesn't exist
+if (-not (Test-Path $OutputDirectory)) {
+    New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
+}
+
 # If dotnet CLI is installed globally and it matches requested version, use for execution
 if ($null -ne (Get-Command "dotnet" -ErrorAction SilentlyContinue) -and `
      $(dotnet --version) -and $LASTEXITCODE -eq 0) {
@@ -72,4 +77,4 @@ if (Test-Path env:NUKE_ENTERPRISE_TOKEN) {
 }
 
 # Build the project and specify the output path
-ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false /p:UseSharedCompilation=false -p:OutputPath="$OutputDirectory" -nologo -clp:NoSummary --verbosity
+ExecSafe { & $env:DOTNET_EXE build "$BuildProjectFile" /nodeReuse:false /p:Use
