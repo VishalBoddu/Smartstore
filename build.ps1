@@ -15,6 +15,7 @@ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 
 $BuildProjectFile = "$PSScriptRoot\src\Smartstore.Build\Smartstore.Build\Smartstore.Build.csproj"
 $TempDirectory = "$PSScriptRoot\\.nuke\temp"
+$OutputDirectory = "$PSScriptRoot\output"  # Specify your output directory here
 
 $DotNetGlobalFile = "$PSScriptRoot\\global.json"
 $DotNetInstallUrl = "https://dot.net/v1/dotnet-install.ps1"
@@ -70,5 +71,5 @@ if (Test-Path env:NUKE_ENTERPRISE_TOKEN) {
     & $env:DOTNET_EXE nuget add source "https://f.feedz.io/nuke/enterprise/nuget" --name "nuke-enterprise" --username "PAT" --password $env:NUKE_ENTERPRISE_TOKEN > $null
 }
 
-ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet }
-ExecSafe { & $env:DOTNET_EXE run --project $BuildProjectFile --no-build -- $BuildArguments }
+# Build the project and specify the output path
+ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false /p:UseSharedCompilation=false -p:OutputPath="$OutputDirectory" -nologo -clp:NoSummary --verbosity
