@@ -11,14 +11,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.x'  # Adjust to your target .NET version
 
@@ -32,18 +32,18 @@ jobs:
         run: ls ./output  # Verify that files are generated
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: smartstore-artifact
           path: ./output
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
 
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: smartstore-artifact
 
@@ -57,6 +57,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'YourAzureAppName'  # Replace with your Azure Web App name
+          app-name: 'Smartstore'  # Replace with your Azure Web App name
           slot-name: 'Production'
           package: './output'  # Path to the published output
