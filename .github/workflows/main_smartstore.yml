@@ -27,13 +27,13 @@ jobs:
         run: ./build.cmd
 
       - name: Verify output directory
-        run: dir C:\Program Files\dotnet\myapp\output\  # Adjust this path if necessary
+        run: dir "C:\\Program Files\\dotnet\\myapp\\output\\"  # Use quotes for paths with spaces
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: C:\Program Files\dotnet\myapp\output\  # Adjust this path if necessary
+          path: "C:\\Program Files\\dotnet\\myapp\\output\\"  # Use quotes for paths with spaces
 
   deploy:
     runs-on: windows-latest
