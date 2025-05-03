@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read # This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -24,13 +24,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Run build script
-        run: ./build.cmd  # Run your custom build script
+        run: ./build.cmd
+
+      - name: Verify output directory
+        run: dir C:\Program Files\dotnet\myapp\output\  # Adjust this path if necessary
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp  # Adjust this path if necessary
+          path: C:\Program Files\dotnet\myapp\output\  # Adjust this path if necessary
 
   deploy:
     runs-on: windows-latest
@@ -39,22 +42,22 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
- 
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2349920D9F9943C0B6C4EB168D23F1E1 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6B35F7D3D60C4BEC94AD7FFCEC2AE390 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_892202F8BF57412ABB1C46E1F1248B0F }}
- 
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
