@@ -24,7 +24,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Run build script
-        run: ./build.sh  # Run your custom build script
+        run: ./build.cmd  # Run your custom build script
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
