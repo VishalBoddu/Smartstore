@@ -47,18 +47,13 @@ jobs:
         with:
           name: smartstore-artifact
 
-      - name: Login to Azure
+      - name: 'Login to Azure'
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          secret-id: ${{ secrets.AZURE_SECRET_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}  # Ensure this is included
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
-          enable-AzPSSession: false
-          environment: azurecloud
-          allow-no-subscriptions: false
-          audience: api://AzureADTokenExchange
-          auth-type: SERVICE_PRINCIPAL
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}  # Optional
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
